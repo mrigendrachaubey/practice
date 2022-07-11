@@ -1,0 +1,136 @@
+right-left rule :
+-----------------
+
+The "right-left" rule is a completely regular rule for deciphering C declarations. It can also be useful in creating them.
+
+Read the symbols as you encounter them in the declaration...
+
+*   as "pointer to"          - always on the left side
+[]  as "array of"            - always on the right side
+()  as "function returning"  - always on the right side
+How to apply the rule
+
+STEP 1
+
+Find the identifier. This is your starting point. Then say to yourself, "identifier is." You've started your declaration.
+
+STEP 2
+
+Look at the symbols on the right of the identifier. If, say, you find () there, then you know that this is the declaration for a function. So you would then have "identifier is function returning". Or if you found a [] there, you would say "identifier is array of". Continue right until you run out of symbols OR hit a right parenthesis ). (If you hit a left parenthesis (, that's the beginning of a () symbol, even if there is stuff in between the parentheses. More on that below.)
+
+STEP 3
+
+Look at the symbols to the left of the identifier. If it is not one of our symbols above (say, something like "int"), just say it. Otherwise, translate it into English using that table above. Keep going left until you run out of symbols OR hit a left parenthesis (.
+
+Now repeat steps 2 and 3 until you've formed your declaration.
+
+
+Example:
+---------
+1.
+
+int *p[];
+First, find identifier:
+
+int *p[];
+     ^
+"p is"
+
+Now, move right until out of symbols or right parenthesis hit.
+
+int *p[];
+      ^^
+"p is array of"
+
+Can't move right anymore (out of symbols), so move left and find:
+
+int *p[];
+    ^
+"p is array of pointer to"
+
+Keep going left and find:
+
+int *p[];
+^^^
+"p is array of pointer to int".
+
+(or "p is an array where each element is of type pointer to int")
+
+2.
+
+int *(*func())();
+Find the identifier.
+
+int *(*func())();
+       ^^^^
+"func is"
+
+Move right.
+
+int *(*func())();
+           ^^
+"func is function returning"
+
+Can't move right anymore because of the right parenthesis, so move left.
+
+int *(*func())();
+      ^
+"func is function returning pointer to"
+
+Can't move left anymore because of the left parenthesis, so keep going right.
+
+int *(*func())();
+              ^^
+"func is function returning pointer to function returning"
+
+Can't move right anymore because we're out of symbols, so go left.
+
+int *(*func())();
+    ^
+"func is function returning pointer to function returning pointer to"
+
+And finally, keep going left, because there's nothing left on the right.
+
+int *(*func())();
+^^^
+"func is function returning pointer to function returning pointer to int".
+
+
+-----------------------------------------
+List of some common complex declarations:
+-----------------------------------------
+int i;               declare i as int
+int *p;              declare p as pointer to int
+int a[];             declare a as array of int
+int f();             declare f as function returning int
+int **pp;            declare pp as pointer to pointer to int
+int (*pa)[];         declare pa as pointer to array of int
+int (*pf)();         declare pf as pointer to function returning int
+int *ap[];           declare ap as array of pointer to int
+int aa[][];          declare aa as array of array of int
+int *fp();           declare fp as function returning pointer to int
+int ***ppp;          declare ppp as pointer to pointer to pointer to int
+int (**ppa)[];       declare ppa as pointer to pointer to array of int
+int (**ppf)();       declare ppf as pointer to pointer to function returning int
+int *(*pap)[];       declare pap as pointer to array of pointer to int
+int (*paa)[][];      declare paa as pointer to array of array of int
+int *(*pfp)();       declare pfp as pointer to function returning pointer to int
+int **app[];         declare app as array of pointer to pointer to int
+int (*apa[])[];      declare apa as array of pointer to array of int
+int (*apf[])();      declare apf as array of pointer to function returning int
+int *aap[][];        declare aap as array of array of pointer to int
+int aaa[][][];       declare aaa as array of array of array of int
+int **fpp();         declare fpp as function returning pointer to pointer to int
+int (*fpa())[];      declare fpa as function returning pointer to array of int
+int (*fpf())();      declare fpf as function returning pointer to function returning int
+
+
+references:
+https://cseweb.ucsd.edu/~gbournou/CSE131/rt_lt.rule.html
+https://parrt.cs.usfca.edu/doc/how-to-read-C-declarations.html
+http://unixwiz.net/techtips/reading-cdecl.html
+http://www.ericgiguere.com/articles/reading-c-declarations.html
+https://stackoverflow.com/questions/89056/how-do-you-read-c-declarations
+https://cdecl.org/
+
+
