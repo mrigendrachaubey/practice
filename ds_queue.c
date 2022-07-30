@@ -1,6 +1,7 @@
 /*
 
-update rear to new node
+1. update rear to new node, keeping front fixed to first node.
+2. remove 1st node and update front to the next node.
 
         node1 -> node2 -> node3 -> node4
         |                           |
