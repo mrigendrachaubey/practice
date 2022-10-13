@@ -16,9 +16,23 @@ unsigned int revBits(unsigned int data)
     return revNum;
 }
 
+void showbits(int value)
+{
+        unsigned int displaymask = 1 << 31;
+        printf("%10u = ", value);
+        for (unsigned int c = 1; c <=32;++c)
+        {
+                putchar(value & displaymask ? '1': '0');
+                value <<= 1;
+                if (c % 8 == 0)
+                        putchar(' ');
+        }
+}
+
 int main()
 {
     unsigned int num = 0x4;
+    showbits(num);
     printf("\n%u\n", revBits(num));
     return 0;
 }
